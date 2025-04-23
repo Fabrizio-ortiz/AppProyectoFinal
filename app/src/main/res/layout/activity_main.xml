@@ -24,7 +24,9 @@
         android:text="Ingresa aquí"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:elevation="10dp"
+        android:translationZ="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,10 +39,13 @@
             android:textColor="@color/white"
             android:layout_marginLeft="90dp"/>
         <TextView
+            android:id="@+id/registro_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Regístrate ya"
-            android:textColor="@color/red"/>
+            android:textColor="@color/red"
+            android:clickable="true"
+            android:focusable="true"/>
 
     </LinearLayout>
 

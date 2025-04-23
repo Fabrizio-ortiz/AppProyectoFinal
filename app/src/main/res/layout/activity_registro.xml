@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegistroActivity"
+    android:background="@drawable/fondo_login">
+
+    <ImageView
+        android:id="@+id/icono_regresar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/icon_regresar"
+        android:contentDescription="Botón regresar"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="0dp"
+        android:src="@drawable/logo1" />
+
+    <LinearLayout
+        android:layout_width="370dp"
+        android:layout_height="570dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/rectangulo_login">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="!Bienvenido a Punto Criollo!"
+            android:textColor="@color/black"
+            android:layout_marginLeft="40dp"
+            android:fontFamily="@font/jotione_regular"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/nombres_edittext"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableTint="@color/gray"
+            android:background="@drawable/border_edittext"
+            android:hint="nombres"
+            android:textSize="15sp"
+            android:inputType="textPersonName"
+            android:fontFamily="@font/jotione_regular"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/apellidos_edittext"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableTint="@color/gray"
+            android:background="@drawable/border_edittext"
+            android:fontFamily="@font/jotione_regular"
+            android:hint="apellidos"
+            android:inputType="textPersonName"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/correo_edittext"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableTint="@color/gray"
+            android:background="@drawable/border_edittext"
+            android:fontFamily="@font/jotione_regular"
+            android:hint="correo electrónico"
+            android:inputType="textEmailAddress"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/celular_edittext"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableTint="@color/gray"
+            android:background="@drawable/border_edittext"
+            android:fontFamily="@font/jotione_regular"
+            android:hint="número de celular"
+            android:inputType="text|number"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/contraseña_edittext"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableTint="@color/gray"
+            android:background="@drawable/border_edittext"
+            android:fontFamily="@font/jotione_regular"
+            android:hint="contraseña"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/validarContraseña_edittext"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableTint="@color/gray"
+            android:background="@drawable/border_edittext"
+            android:fontFamily="@font/jotione_regular"
+            android:hint="validar contraseña"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"/>
+
+        <Button
+            android:id="@+id/ingresar_button"
+            android:layout_width="300dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/orange"
+            android:text="Registrarse"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:elevation="10dp"
+            android:translationZ="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Estoy listo para ser un miembro!"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_marginLeft="80dp"/>
+
+
+    </LinearLayout>
+</LinearLayout>
