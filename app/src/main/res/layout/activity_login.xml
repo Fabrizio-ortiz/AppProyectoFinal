@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="@drawable/fondo_login">
+
+    <ImageView
+        android:layout_width="240dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logo1"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="372dp"
+        android:layout_height="374dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/rectangulo_login"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="!Bienvenido a Punto Criollo!"
+            android:textColor="@color/black"
+            android:layout_marginLeft="50dp"
+            android:fontFamily="@font/jotione_regular"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/email_edittext"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableTint="@color/gray"
+            android:hint="Email:"
+            android:textSize="15sp"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="30dp"
+            android:fontFamily="@font/jotione_regular"/>
+
+        <EditText
+            android:id="@+id/password_edittext"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:drawableTint="@color/gray"
+            android:fontFamily="@font/jotione_regular"
+            android:hint="Contraseña:"
+            android:inputType="textPassword"
+            android:paddingBottom="30dp"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/custom_button"
+            android:layout_width="300dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/orange"
+            android:text="Ingresa ya"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿No tienes una cuenta?"
+                android:textColor="@color/black"
+                android:layout_marginLeft="70dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Regístrate ya"
+                android:textColor="@color/red"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
