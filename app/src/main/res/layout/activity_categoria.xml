@@ -69,6 +69,16 @@
                 android:textColor="@color/white"
                 android:textSize="30dp" />
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="370dp"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:text="¡Estoy listo para ser un miembro!" />
+
         </LinearLayout>
 
         <TextView

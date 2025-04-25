@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AppProyectoFinal"
         tools:targetApi="31">
         <activity
+            android:name=".PostresActivity"
+            android:exported="false" />
+        <activity
             android:name=".PlatofuerteActivity3"
             android:exported="false" />
         <activity
