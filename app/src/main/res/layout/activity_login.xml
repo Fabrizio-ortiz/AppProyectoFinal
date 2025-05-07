@@ -27,36 +27,36 @@
         android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
-        android:layout_width="372dp"
-        android:layout_height="374dp"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rectangulo_login"
-        android:layout_marginTop="40dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/jotione_regular"
             android:text="!Bienvenido a Punto Criollo!"
             android:textColor="@color/black"
-            android:layout_marginLeft="50dp"
-            android:fontFamily="@font/jotione_regular"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/email_edittext"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:drawableTint="@color/gray"
-            android:drawableStart="@drawable/icon_email"
-            android:hint="Email:"
-            android:textSize="15sp"
-            android:inputType="textEmailAddress"
             android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/icon_email"
+            android:drawableTint="@color/gray"
+            android:fontFamily="@font/jotione_regular"
+            android:hint="Email:"
+            android:inputType="textEmailAddress"
             android:paddingBottom="30dp"
-            android:fontFamily="@font/jotione_regular"/>
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/password_edittext"
@@ -79,31 +79,33 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
             android:backgroundTint="@color/orange"
+            android:elevation="10dp"
             android:text="Ingresa ya"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white"
             android:textSize="25dp"
-            android:elevation="10dp"
-            android:translationZ="5dp"/>
+            android:translationZ="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
                 android:text="¿No tienes una cuenta?"
-                android:textColor="@color/black"
-                android:layout_marginLeft="70dp"/>
+                android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/registro_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Regístrate ya"
-                android:textColor="@color/red"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:text=" Regístrate ya"
+                android:textColor="@color/red" />
 
         </LinearLayout>
 

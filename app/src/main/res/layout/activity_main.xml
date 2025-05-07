@@ -1,52 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:padding="24dp">
 
+    <!-- Logo centrado -->
     <ImageView
-        android:layout_width="240dp"
-        android:layout_height="250dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/logo1"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_marginTop="48dp"
+        android:contentDescription="Logo" />
 
+    <!-- Espaciador flexible -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Botón principal -->
     <Button
         android:id="@+id/custom_button"
-        android:layout_width="300dp"
-        android:layout_height="72dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="470dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/orange"
         android:text="Ingresa aquí"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
-        android:textSize="25dp"
-        android:elevation="10dp"
-        android:translationZ="5dp"/>
+        android:textSize="20sp"
+        android:elevation="6dp"
+        android:translationZ="4dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"/>
 
+    <!-- Texto de registro -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="32dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿No tienes una cuenta?"
             android:textColor="@color/white"
-            android:layout_marginLeft="90dp"/>
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/registro_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:text=" Regístrate ya"
             android:textColor="@color/red"
-            android:clickable="true"
-            android:focusable="true"/>
-
+            android:textStyle="bold"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>
