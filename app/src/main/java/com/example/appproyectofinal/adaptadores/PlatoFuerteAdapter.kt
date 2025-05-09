@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.R
-
 import com.example.appproyectofinal.model.PlatosFuertes
 
 class PlatoFuerteAdapter(private val listaPlatos: List<PlatosFuertes>) :
@@ -24,7 +23,7 @@ class PlatoFuerteAdapter(private val listaPlatos: List<PlatosFuertes>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlatoViewHolder {
-        val vista = LayoutInflater.from(parent.context).inflate(R.layout.activity_platofuerte_main, parent, false)
+        val vista = LayoutInflater.from(parent.context).inflate(R.layout.item_platofuerte, parent, false)
         return PlatoViewHolder(vista)
     }
 
