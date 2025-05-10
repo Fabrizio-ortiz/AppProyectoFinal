@@ -38,7 +38,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         botonRegresar.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed() // Para regresar a la pantalla anterior
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
 
         // Instancia de la base de datos

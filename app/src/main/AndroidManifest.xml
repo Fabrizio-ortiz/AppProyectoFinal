@@ -16,23 +16,18 @@
             android:name=".PostresActivity"
             android:exported="false" />
         <activity
-            android:name=".PlatofuerteActivity3"
-            android:exported="false" />
+            android:name=".EntradasActivity"
+            android:exported="false"/>
         <activity
-            android:name=".PlatofuerteActivity2"
+            android:name=".BebidasActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".PlatofuerteActivity3"
             android:exported="false" />
         <activity
             android:name=".CategoriaActivity3"
             android:exported="false" />
-        <activity
-            android:name=".PlatofuerteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CategoriaActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".CategoriaActivity"
-            android:exported="false" />
+
         <activity
             android:name=".RegistroActivity"
             android:exported="false" />

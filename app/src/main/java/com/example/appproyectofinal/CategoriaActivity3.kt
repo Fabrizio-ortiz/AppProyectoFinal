@@ -2,9 +2,7 @@ package com.example.appproyectofinal
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -21,8 +19,22 @@ class CategoriaActivity3 : AppCompatActivity() {
             insets
         }
 
+        val button_entradas = findViewById<ImageView>(R.id.custom_button_entrada)
+        val button_bebidas = findViewById<ImageView>(R.id.custom_button_bebidas)
         val button_postres = findViewById<ImageView>(R.id.custom_button_postres)
         val button_platosFuertes = findViewById<ImageView>(R.id.custom_button_platosfuertes)
+        val button_regresar_categoria = findViewById<ImageView>(R.id.icono_regresar)
+
+
+        button_entradas.setOnClickListener{
+            val intent = Intent(this, EntradasActivity::class.java)
+            startActivity(intent)
+        }
+
+        button_bebidas.setOnClickListener {
+            val intent = Intent(this, BebidasActivity::class.java)
+            startActivity(intent)
+        }
 
         button_postres.setOnClickListener{
             val intent = Intent(this, PostresActivity::class.java)
@@ -31,6 +43,11 @@ class CategoriaActivity3 : AppCompatActivity() {
 
         button_platosFuertes.setOnClickListener{
             val intent = Intent(this, PlatofuerteActivity3::class.java)
+            startActivity(intent)
+        }
+
+        button_regresar_categoria.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 

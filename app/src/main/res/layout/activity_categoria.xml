@@ -68,6 +68,7 @@
             android:layout_margin="8dp">
 
             <ImageView
+                android:id="@+id/custom_button_entrada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/entrada"
@@ -131,6 +132,7 @@
             android:layout_margin="8dp">
 
             <ImageView
+                android:id="@+id/custom_button_bebidas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/bebidas"

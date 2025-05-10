@@ -1,41 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".BebidasActivity">
+    android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".LoginActivity"
-        android:orientation="vertical"
-        android:background="@drawable/fondo_login">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:text="Bebidas"
-            android:layout_marginLeft="60dp"
-            android:textColor="@color/white"
-
-            android:textSize="30dp" />
-    </LinearLayout>
+    <!-- Botón para volver -->
     <ImageView
         android:id="@+id/icono_regresar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
         android:src="@drawable/icon_regresar"
-        android:contentDescription="Botón regresar"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"/>
+        android:contentDescription="Regresar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Lista de platos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerBebidas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"/>
+</LinearLayout>
