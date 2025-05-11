@@ -11,6 +11,9 @@ interface PedidoDao {
     @Insert
     suspend fun insertarPedido(pedido: PedidoEntity)
 
+    @Query("SELECT * FROM pedidos ORDER BY id DESC LIMIT 1")
+    suspend fun obtenerUltimoPedido(): PedidoEntity?
+
     @Query("SELECT * FROM pedidos")
     suspend fun obtenerTodos(): List<PedidoEntity>
 

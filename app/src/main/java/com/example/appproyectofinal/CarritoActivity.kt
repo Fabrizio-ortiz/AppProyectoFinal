@@ -63,8 +63,29 @@ class CarritoActivity : AppCompatActivity() {
             mostrarOpcionesEnvio()
         }
 
+        // Llamar a la función de generar número de pedido cuando el usuario hace clic en "Realizar Pedido"
         btnRealizarPedido.setOnClickListener {
-            guardarPedidoEnRoom()
+            generarNumeroPedido() // Llamar a la función para generar el número de pedido
+        }
+    }
+
+    private fun generarNumeroPedido() {
+        val db = AppDb.getDatabase(this)
+
+        lifecycleScope.launch {
+            var numeroPedido = 1
+
+            val dao = db.pedidoDao()
+            val ultimoPedido = dao.obtenerUltimoPedido() // Obtener el último pedido
+            if (ultimoPedido != null) {
+                numeroPedido = ultimoPedido.id + 1 // El número del nuevo pedido será 1 más que el último
+            }
+
+            // Formatear el número con ceros a la izquierda (ejemplo #000232)
+            val numeroPedidoFormateado = "#%06d".format(numeroPedido)
+
+            // Aquí es donde pasas el número generado a la función para guardar el pedido
+            guardarPedidoEnRoom(numeroPedidoFormateado)
         }
     }
 
@@ -112,9 +133,18 @@ class CarritoActivity : AppCompatActivity() {
         costoDelivery.text = "Delivery: S/ %.2f".format(costoEnvio)
     }
 
-    private fun guardarPedidoEnRoom() {
+    private fun guardarPedidoEnRoom(numeroPedido: String) {
         val db = AppDb.getDatabase(this)
         val fecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+        // Obtener el nombre del método de envío
+        val metodoEnvioSeleccionado = if (costoEnvio == deliveryFijo) {
+            "Delivery"
+        } else {
+            // Obtener el nombre de la tienda seleccionada si se seleccionó "Recoger en tienda"
+            val tiendaSeleccionada = metodoEnvio.text.toString().split("-")[1].trim()
+            "Recoger en tienda ($tiendaSeleccionada)"
+        }
 
         lifecycleScope.launch {
             val dao = db.pedidoDao()
@@ -124,7 +154,9 @@ class CarritoActivity : AppCompatActivity() {
                     cantidad = item.cantidad,
                     precioTotal = item.precio * item.cantidad,
                     fecha = fecha,
-                    delivery = costoEnvio
+                    delivery = costoEnvio,
+                    metodoEnvio = metodoEnvioSeleccionado,
+                    numeroPedido = numeroPedido // Guardamos el número de pedido generado
                 )
                 dao.insertarPedido(pedido)
             }
@@ -134,4 +166,5 @@ class CarritoActivity : AppCompatActivity() {
             finish()
         }
     }
-}
+
+    }
