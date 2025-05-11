@@ -54,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 lifecycleScope.launch {
                     val usuario = userDao.login(email, password)
-                    runOnUiThread {
                         if (usuario != null) {
                             Toast.makeText(
                                 this@LoginActivity,
@@ -69,7 +68,6 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                    }
                 }
             } else {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()

@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.R
+import com.example.appproyectofinal.dao.Carrito
 import com.example.appproyectofinal.model.Entrada
 
 
@@ -34,7 +35,8 @@ class EntradaAdapter(private val listaEntrada: List<Entrada>) :
         holder.imagen.setImageResource(entrada.imagen)
 
         holder.botonOrdenar.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Ordenaste ${entrada.nombreEntrada}", Toast.LENGTH_SHORT).show()
+            Carrito.agregar(entrada)
+            Toast.makeText(holder.itemView.context, "${entrada.nombreEntrada} agregado al carrito", Toast.LENGTH_SHORT).show()
         }
     }
 

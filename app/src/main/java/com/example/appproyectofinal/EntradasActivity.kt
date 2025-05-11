@@ -2,6 +2,7 @@ package com.example.appproyectofinal
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,5 +37,9 @@ class EntradasActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerEntradas)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = EntradaAdapter(listaEntradas)
+
+        findViewById<Button>(R.id.btnVerCarrito).setOnClickListener {
+            startActivity(Intent(this, CarritoActivity::class.java))
+        }
     }
 }

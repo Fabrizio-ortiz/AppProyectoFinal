@@ -2,6 +2,7 @@ package com.example.appproyectofinal
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -38,5 +39,9 @@ class BebidasActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerBebidas)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = BebidaAdapter(listaBebidas)
+
+        findViewById<Button>(R.id.btnVerCarrito).setOnClickListener {
+            startActivity(Intent(this, CarritoActivity::class.java))
+        }
     }
 }

@@ -9,10 +9,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.R
+import com.example.appproyectofinal.dao.Carrito
 import com.example.appproyectofinal.model.PlatosFuertes
 
 class PlatoFuerteAdapter(private val listaPlatos: List<PlatosFuertes>) :
     RecyclerView.Adapter<PlatoFuerteAdapter.PlatoViewHolder>() {
+
+
 
     class PlatoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombre: TextView = itemView.findViewById(R.id.txtNombre)
@@ -35,9 +38,13 @@ class PlatoFuerteAdapter(private val listaPlatos: List<PlatosFuertes>) :
         holder.imagen.setImageResource(plato.imagen)
 
         holder.botonOrdenar.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Ordenaste ${plato.nombrePlatoFuerte}", Toast.LENGTH_SHORT).show()
+            Carrito.agregar(plato)
+            Toast.makeText(holder.itemView.context, "${plato.nombrePlatoFuerte} agregado al carrito", Toast.LENGTH_SHORT).show()
         }
     }
 
+
     override fun getItemCount() = listaPlatos.size
+
+
 }

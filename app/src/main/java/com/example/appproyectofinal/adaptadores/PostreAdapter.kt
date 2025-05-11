@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.R
-import com.example.appproyectofinal.model.PlatosFuertes
+import com.example.appproyectofinal.dao.Carrito
 import com.example.appproyectofinal.model.Postre
 
 class PostreAdapter(private val listaPostre: List<Postre>) :
@@ -28,13 +28,14 @@ class PostreAdapter(private val listaPostre: List<Postre>) :
     }
 
     override fun onBindViewHolder(holder: PostreViewHolder, position: Int) {
-        val plato = listaPostre[position]
-        holder.nombre.text = plato.nombrePostre
-        holder.precio.text = "S/ ${String.format("%.2f", plato.precio)}"
-        holder.imagen.setImageResource(plato.imagen)
+        val postre = listaPostre[position]
+        holder.nombre.text = postre.nombrePostre
+        holder.precio.text = "S/ ${String.format("%.2f", postre.precio)}"
+        holder.imagen.setImageResource(postre.imagen)
 
         holder.botonOrdenar.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Ordenaste ${plato.nombrePostre}", Toast.LENGTH_SHORT).show()
+            Carrito.agregar(postre)
+            Toast.makeText(holder.itemView.context, "${postre.nombrePostre} agregado al carrito", Toast.LENGTH_SHORT).show()
         }
     }
 

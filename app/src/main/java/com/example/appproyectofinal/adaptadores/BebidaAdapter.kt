@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.R
+import com.example.appproyectofinal.dao.Carrito
 import com.example.appproyectofinal.model.Bebida
 
 
@@ -29,14 +30,15 @@ class BebidaAdapter(private val listaBebida: List<Bebida>) :
     }
 
     override fun onBindViewHolder(holder: BebidaViewHolder, position: Int) {
-        val entrada = listaBebida[position]
-        holder.nombre.text = entrada.nombreBebida
-        holder.descripcion.text = entrada.descripcion
-        holder.precio.text = "S/ ${String.format("%.2f", entrada.precio)}"
-        holder.imagen.setImageResource(entrada.imagen)
+        val bebida = listaBebida[position]
+        holder.nombre.text = bebida.nombreBebida
+        holder.descripcion.text = bebida.descripcion
+        holder.precio.text = "S/ ${String.format("%.2f", bebida.precio)}"
+        holder.imagen.setImageResource(bebida.imagen)
 
         holder.botonOrdenar.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Ordenaste ${entrada.nombreBebida}", Toast.LENGTH_SHORT).show()
+            Carrito.agregar(bebida)
+            Toast.makeText(holder.itemView.context, "${bebida.nombreBebida} agregado al carrito", Toast.LENGTH_SHORT).show()
         }
     }
 

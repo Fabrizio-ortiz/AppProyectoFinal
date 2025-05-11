@@ -2,6 +2,7 @@ package com.example.appproyectofinal
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,5 +40,9 @@ class PlatofuerteActivity3 : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerPlatos)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = PlatoFuerteAdapter(listaPlatos)
+
+        findViewById<Button>(R.id.btnVerCarrito).setOnClickListener {
+            startActivity(Intent(this, CarritoActivity::class.java))
+        }
     }
 }
