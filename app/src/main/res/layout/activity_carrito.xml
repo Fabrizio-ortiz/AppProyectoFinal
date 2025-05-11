@@ -19,6 +19,41 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+    <TextView
+        android:id="@+id/fechaPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha: "
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:gravity="end"/>
+
+    <TextView
+        android:id="@+id/costoDelivery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delivery: S/ 5.00"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:gravity="end"/>
+    <Button
+        android:id="@+id/btnSeleccionarMetodo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Método de Envío"
+        android:backgroundTint="#FF8800"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/txtMetodoEnvio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Método de Envío: No seleccionado"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:gravity="start" />
 
     <TextView
         android:id="@+id/totalCarrito"

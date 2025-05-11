@@ -8,5 +8,7 @@ data class PedidoEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val nombrePlato: String,
     val cantidad: Int,
-    val precioTotal: Double
+    val precioTotal: Double,
+    val fecha: String,
+    val delivery: Double
 )
