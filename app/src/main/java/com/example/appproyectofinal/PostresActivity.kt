@@ -19,8 +19,13 @@ class PostresActivity : AppCompatActivity() {
 
         val regresar_postres = findViewById<ImageView>(R.id.icono_regresar)
 
+        // Obtener el correo del usuario desde el Intent
+        val correoUsuario = intent.getStringExtra("usuarioCorreo") ?: ""
+
         regresar_postres.setOnClickListener{
             val intent = Intent(this, CategoriaActivity3::class.java)
+            intent.putExtra("usuarioCorreo", correoUsuario) // <-- Asegúrate de reenviarlo
+            startActivity(intent)
             startActivity(intent)
         }
 
@@ -39,7 +44,10 @@ class PostresActivity : AppCompatActivity() {
         recyclerView.adapter = PostreAdapter(listaPostres)
 
         findViewById<Button>(R.id.btnVerCarrito).setOnClickListener {
-            startActivity(Intent(this, CarritoActivity::class.java))
+            // Pasar el correo al carrito
+            val intent = Intent(this, CarritoActivity::class.java)
+            intent.putExtra("usuarioCorreo", correoUsuario)  // Añadir el correo al Intent
+            startActivity(intent)
         }
     }
 }

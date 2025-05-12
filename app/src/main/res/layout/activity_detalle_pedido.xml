@@ -1,0 +1,66 @@
+<!-- activity_detalle_pedido.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- Botón para volver -->
+        <ImageView
+            android:id="@+id/icono_regresar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="0dp"
+            android:src="@drawable/icon_regresar"
+            android:contentDescription="Regresar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:text="Mi Pedido"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Información del pedido -->
+    <TextView
+        android:id="@+id/txtNumeroPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Número de Pedido: #000001"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha: 11/05/2025"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtMetodoEnvio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Método de Envío: Delivery (S/ 5.00)"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: S/ 50.00"
+        android:textSize="18sp" />
+
+    <!-- RecyclerView para los productos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProductos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

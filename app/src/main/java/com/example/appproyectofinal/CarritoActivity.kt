@@ -1,5 +1,6 @@
 package com.example.appproyectofinal
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -12,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.adaptadores.CarritoAdapter
 import com.example.appproyectofinal.config.AppDb
-import com.example.appproyectofinal.dao.Carrito
 import com.example.appproyectofinal.model.PedidoEntity
+import com.example.appproyectofinal.model.ProductoPedidoEntity
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -28,6 +29,8 @@ class CarritoActivity : AppCompatActivity() {
     private val deliveryFijo = 5.00
     private var costoEnvio = 0.00
 
+    private lateinit var correoUsuario: String // Mover esta declaración fuera del intent
+
     // Lista de tiendas con sus direcciones
     private val tiendas = listOf(
         "Tienda Los Olivos - Dirección: Av. Siempre Viva 123",
@@ -38,6 +41,9 @@ class CarritoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_carrito)
+
+        // Obtener el correo del usuario de los extras del Intent
+        correoUsuario = intent.getStringExtra("usuarioCorreo") ?: ""
 
         val buttonRegresar = findViewById<ImageView>(R.id.icono_regresar)
         val recycler = findViewById<RecyclerView>(R.id.recyclerCarrito)
@@ -65,11 +71,11 @@ class CarritoActivity : AppCompatActivity() {
 
         // Llamar a la función de generar número de pedido cuando el usuario hace clic en "Realizar Pedido"
         btnRealizarPedido.setOnClickListener {
-            generarNumeroPedido() // Llamar a la función para generar el número de pedido
+            generarNumeroPedido(correoUsuario) // Pasar el correo al generar el número de pedido
         }
     }
 
-    private fun generarNumeroPedido() {
+    private fun generarNumeroPedido(correo: String) {
         val db = AppDb.getDatabase(this)
 
         lifecycleScope.launch {
@@ -84,8 +90,8 @@ class CarritoActivity : AppCompatActivity() {
             // Formatear el número con ceros a la izquierda (ejemplo #000232)
             val numeroPedidoFormateado = "#%06d".format(numeroPedido)
 
-            // Aquí es donde pasas el número generado a la función para guardar el pedido
-            guardarPedidoEnRoom(numeroPedidoFormateado)
+            // Llamar a la función para guardar el pedido, pasando el número generado y el correo
+            guardarPedidoEnRoom(numeroPedidoFormateado, correo)
         }
     }
 
@@ -133,7 +139,7 @@ class CarritoActivity : AppCompatActivity() {
         costoDelivery.text = "Delivery: S/ %.2f".format(costoEnvio)
     }
 
-    private fun guardarPedidoEnRoom(numeroPedido: String) {
+    private fun guardarPedidoEnRoom(numeroPedido: String, email: String) {
         val db = AppDb.getDatabase(this)
         val fecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
@@ -148,18 +154,42 @@ class CarritoActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             val dao = db.pedidoDao()
+
+            // Insertar el pedido en la tabla "pedidos"
+            val pedido = PedidoEntity(
+                nombrePlato = "Pedido $numeroPedido", // Puedes incluir un nombre genérico para el pedido
+                cantidad = Carrito.items.size,  // Número de ítems en el carrito
+                precioTotal = Carrito.items.sumOf { it.precio * it.cantidad } + costoEnvio,
+                fecha = fecha,
+                delivery = costoEnvio,
+                metodoEnvio = metodoEnvioSeleccionado,
+                numeroPedido = numeroPedido,
+                email = email // Correo del usuario
+            )
+            dao.insertarPedido(pedido)
+
+            // Insertar los productos en la tabla "productos_pedido"
+            val productoDao = db.productoDao() // Asegúrate de tener un DAO para ProductoPedidoEntity
             for (item in Carrito.items) {
-                val pedido = PedidoEntity(
+                val productoPedido = ProductoPedidoEntity(
+                    pedidoId = pedido.id, // Esto es importante para la relación entre PedidoEntity y ProductoPedidoEntity
                     nombrePlato = item.nombre,
                     cantidad = item.cantidad,
-                    precioTotal = item.precio * item.cantidad,
-                    fecha = fecha,
-                    delivery = costoEnvio,
-                    metodoEnvio = metodoEnvioSeleccionado,
-                    numeroPedido = numeroPedido // Guardamos el número de pedido generado
+                    precio = item.precio,
+                    numeroPedido = numeroPedido,
+                    imagenResId = item.imagen
                 )
-                dao.insertarPedido(pedido)
+                productoDao.insertarProducto(productoPedido) // Inserta el producto
             }
+
+            // Navegar a la actividad de detalle del pedido
+            val intent = Intent(this@CarritoActivity, DetallePedidoActivity::class.java).apply {
+                putExtra("numeroPedido", numeroPedido)
+                putExtra("fecha", fecha)
+                putExtra("metodoEnvio", metodoEnvioSeleccionado)
+                putExtra("total", Carrito.items.sumOf { it.precio * it.cantidad } + costoEnvio)
+            }
+            startActivity(intent)
 
             Toast.makeText(this@CarritoActivity, "Pedido guardado con éxito", Toast.LENGTH_SHORT).show()
             Carrito.limpiar()
@@ -167,4 +197,4 @@ class CarritoActivity : AppCompatActivity() {
         }
     }
 
-    }
+}

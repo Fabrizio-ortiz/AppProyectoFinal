@@ -26,22 +26,23 @@
         android:layout_weight="1" />
 
     <!-- Botón principal -->
+
+    <!-- Texto de registro -->
     <Button
         android:id="@+id/custom_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/orange"
+        android:elevation="6dp"
         android:text="Ingresa aquí"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:elevation="6dp"
-        android:translationZ="4dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
+        android:translationZ="4dp" />
 
-    <!-- Texto de registro -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

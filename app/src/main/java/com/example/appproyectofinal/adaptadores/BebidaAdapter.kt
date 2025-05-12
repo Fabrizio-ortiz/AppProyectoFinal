@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.R
-import com.example.appproyectofinal.dao.Carrito
 import com.example.appproyectofinal.model.Bebida
 
 

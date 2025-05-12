@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appproyectofinal.R
-import com.example.appproyectofinal.dao.Carrito
 import com.example.appproyectofinal.model.ItemCarrito
 
 class CarritoAdapter(

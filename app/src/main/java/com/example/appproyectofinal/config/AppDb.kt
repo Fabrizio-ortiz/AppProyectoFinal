@@ -7,43 +7,36 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.appproyectofinal.dao.PedidoDao
+import com.example.appproyectofinal.dao.ProductoPedidoDao
 import com.example.appproyectofinal.dao.UserDao
 import com.example.appproyectofinal.model.PedidoEntity
+import com.example.appproyectofinal.model.ProductoPedidoEntity
 import com.example.appproyectofinal.model.User
 
-@Database(entities = [User::class, PedidoEntity::class], version = 4)
+@Database(entities = [User::class, PedidoEntity::class, ProductoPedidoEntity::class], version = 7) // Agregamos ProductoPedidoEntity y actualizamos la versión
 abstract class AppDb : RoomDatabase() {
-    abstract  fun userDao(): UserDao
+    abstract fun userDao(): UserDao
     abstract fun pedidoDao(): PedidoDao
+    abstract fun productoDao(): ProductoPedidoDao // Agregar este DAO
 
-    companion object{
+    companion object {
         @Volatile private var INSTANCE: AppDb? = null
 
-        // Migración de la versión 1 a la versión 2
-        val MIGRATION_3_4 = object : Migration(3, 4) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                // Añadir el nuevo campo `numeroPedido`
-                database.execSQL("ALTER TABLE pedidos ADD COLUMN numeroPedido TEXT NOT NULL DEFAULT ''")
-            }
-        }
 
-
-        fun getDatabase(context: Context): AppDb{
-            context.deleteDatabase("mi_base_de_datos")
+        fun getDatabase(context: Context): AppDb {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDb::class.java,
                     "mi_base_de_datos"
-
-                )   .addMigrations(MIGRATION_3_4) // Agrega la migración aquí
-                    .fallbackToDestructiveMigration() // Solo para desarrollo, eliminará la base de datos al cambiar el esquema
+                )
+                    .fallbackToDestructiveMigration() // Eliminar base de datos si es necesario durante desarrollo
                     .build()
                 INSTANCE = instance
                 instance
-
             }
         }
-
     }
 }
+
+
