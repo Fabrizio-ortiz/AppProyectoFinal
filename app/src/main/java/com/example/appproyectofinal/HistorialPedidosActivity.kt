@@ -61,6 +61,7 @@ class HistorialPedidosActivity : AppCompatActivity() {
                         putExtra("numeroPedido", pedido.numeroPedido)
                         putExtra("fecha", pedido.fecha)
                         putExtra("metodoEnvio", pedido.metodoEnvio)
+                        putExtra("metodoPago", pedido.metodoPago)
                         putExtra("total", pedido.precioTotal)  // Usamos el precioTotal como el total
                     }
                     startActivity(intent)

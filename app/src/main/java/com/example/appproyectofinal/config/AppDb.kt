@@ -13,7 +13,7 @@ import com.example.appproyectofinal.model.PedidoEntity
 import com.example.appproyectofinal.model.ProductoPedidoEntity
 import com.example.appproyectofinal.model.User
 
-@Database(entities = [User::class, PedidoEntity::class, ProductoPedidoEntity::class], version = 7) // Agregamos ProductoPedidoEntity y actualizamos la versión
+@Database(entities = [User::class, PedidoEntity::class, ProductoPedidoEntity::class], version = 8) // Agregamos ProductoPedidoEntity y actualizamos la versión
 abstract class AppDb : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun pedidoDao(): PedidoDao

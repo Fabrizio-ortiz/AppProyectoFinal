@@ -5,14 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Botón para volver -->
-    <ImageView
-        android:id="@+id/icono_regresar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:src="@drawable/icon_regresar"
-        android:contentDescription="Regresar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- Botón para volver -->
+        <ImageView
+            android:id="@+id/icono_regresar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_regresar"
+            android:contentDescription="Regresar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:text="Postres"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/jotione_regular"/>
+    </LinearLayout>
 
     <!-- Lista de postres -->
     <androidx.recyclerview.widget.RecyclerView

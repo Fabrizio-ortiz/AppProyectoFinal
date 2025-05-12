@@ -26,6 +26,7 @@ class CarritoActivity : AppCompatActivity() {
     private lateinit var fechaPedido: TextView
     private lateinit var costoDelivery: TextView
     private lateinit var metodoEnvio: TextView
+    private lateinit var metodoPago: TextView
     private val deliveryFijo = 5.00
     private var costoEnvio = 0.00
 
@@ -51,8 +52,10 @@ class CarritoActivity : AppCompatActivity() {
         fechaPedido = findViewById(R.id.fechaPedido)
         costoDelivery = findViewById(R.id.costoDelivery)
         metodoEnvio = findViewById(R.id.txtMetodoEnvio)
+        metodoPago = findViewById(R.id.txtMetodoPago)
         val btnRealizarPedido = findViewById<Button>(R.id.btnRealizarPedido)
         val btnSeleccionarMetodo = findViewById<Button>(R.id.btnSeleccionarMetodo)
+        val btnSeleccionarMetodoPago = findViewById<Button>(R.id.btnSeleccionarMetodoPago)
 
         buttonRegresar.setOnClickListener {
             onBackPressed()
@@ -69,9 +72,26 @@ class CarritoActivity : AppCompatActivity() {
             mostrarOpcionesEnvio()
         }
 
+        btnSeleccionarMetodoPago.setOnClickListener {
+            mostrarOpcionesPago()
+        }
+
         // Llamar a la función de generar número de pedido cuando el usuario hace clic en "Realizar Pedido"
         btnRealizarPedido.setOnClickListener {
-            generarNumeroPedido(correoUsuario) // Pasar el correo al generar el número de pedido
+            val metodoEnvioTexto = metodoEnvio.text.toString()
+            val metodoPagoTexto = metodoPago.text.toString()
+
+            if (metodoEnvioTexto == "Método de Envío: No seleccionado") {
+                Toast.makeText(this, "Selecciona un método de envío", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (metodoPagoTexto == "Método de Pago: No seleccionado") {
+                Toast.makeText(this, "Selecciona un método de pago", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            generarNumeroPedido(correoUsuario)
         }
     }
 
@@ -121,6 +141,26 @@ class CarritoActivity : AppCompatActivity() {
         builder.show()
     }
 
+    private fun mostrarOpcionesPago() {
+        val opcionesPago = arrayOf("Pago en efectivo", "Pago con Yape", "Pago con Plin")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Selecciona el método de pago")
+        builder.setItems(opcionesPago) { dialog, which ->
+            when (which) {
+                0 -> {
+                    metodoPago.text = "Pago en efectivo"
+                }
+                1 -> {
+                    metodoPago.text = "Pago con Yape"
+                }
+                2 -> {
+                    metodoPago.text = "Pago con Plin"
+                }
+            }
+        }
+        builder.show()
+    }
+
     // Mostrar las tiendas disponibles para recoger en tienda
     private fun mostrarTiendas() {
         val builder = AlertDialog.Builder(this)
@@ -152,6 +192,10 @@ class CarritoActivity : AppCompatActivity() {
             "Recoger en tienda ($tiendaSeleccionada)"
         }
 
+        // Obtener el nombre del metodo de pago
+        val metodoPagoSeleccionado = metodoPago.text.toString().trim()
+
+
         lifecycleScope.launch {
             val dao = db.pedidoDao()
 
@@ -163,6 +207,7 @@ class CarritoActivity : AppCompatActivity() {
                 fecha = fecha,
                 delivery = costoEnvio,
                 metodoEnvio = metodoEnvioSeleccionado,
+                metodoPago = metodoPagoSeleccionado,
                 numeroPedido = numeroPedido,
                 email = email // Correo del usuario
             )
@@ -187,6 +232,7 @@ class CarritoActivity : AppCompatActivity() {
                 putExtra("numeroPedido", numeroPedido)
                 putExtra("fecha", fecha)
                 putExtra("metodoEnvio", metodoEnvioSeleccionado)
+                putExtra("metodoPago", metodoPagoSeleccionado)
                 putExtra("total", Carrito.items.sumOf { it.precio * it.cantidad } + costoEnvio)
             }
             startActivity(intent)

@@ -18,7 +18,7 @@ interface PedidoDao {
     @Query("SELECT * FROM pedidos WHERE email = :email")
     suspend fun obtenerPedidosPorEmail(email: String): List<PedidoEntity>
 
-    @Query("SELECT * FROM pedidos WHERE email = :email ORDER BY fecha DESC")
+    @Query("SELECT * FROM pedidos WHERE email = :email ORDER BY id desc,fecha DESC")
     suspend fun obtenerPedidosPorUsuario(email: String): List<PedidoEntity>
 
     // Cambié esta consulta para obtener los productos relacionados con un pedido

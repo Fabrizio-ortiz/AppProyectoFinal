@@ -12,6 +12,7 @@ data class PedidoEntity(
     val fecha: String,
     val delivery: Double,  // Costo de delivery (fijo o 0)
     val metodoEnvio: String,  // "Delivery" o "Recoger en tienda"
+    val metodoPago: String, //Metodo de pago
     val numeroPedido: String, // Nuevo campo para el número de pedido
     val email: String // Relacionamos el pedido con el correo del usuario
 )

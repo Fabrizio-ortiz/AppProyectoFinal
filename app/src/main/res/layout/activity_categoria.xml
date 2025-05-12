@@ -17,19 +17,22 @@
         android:layout_alignParentTop="true" />
 
     <!-- Botón regresar (esquina superior izquierda) -->
+
+    <!-- Icono Historial de pedidos (parte superior derecha) -->
     <ImageView
         android:id="@+id/icono_regresar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/icon_regresar"
-        android:contentDescription="Botón regresar"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_margin="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="Botón regresar"
+        android:focusable="true"
+        android:src="@drawable/icon_regresar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Icono Historial de pedidos (parte superior derecha) -->
     <ImageView
         android:id="@+id/icono_historial"
         android:layout_width="40dp"

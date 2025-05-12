@@ -17,6 +17,7 @@ class DetallePedidoActivity : AppCompatActivity() {
     private lateinit var txtNumeroPedido: TextView
     private lateinit var txtFecha: TextView
     private lateinit var txtMetodoEnvio: TextView
+    private lateinit var txtMetodoPago: TextView
     private lateinit var txtTotal: TextView
     private lateinit var recyclerProductos: RecyclerView
 
@@ -28,6 +29,7 @@ class DetallePedidoActivity : AppCompatActivity() {
         txtNumeroPedido = findViewById(R.id.txtNumeroPedido)
         txtFecha = findViewById(R.id.txtFecha)
         txtMetodoEnvio = findViewById(R.id.txtMetodoEnvio)
+        txtMetodoPago = findViewById(R.id.txtMetodoPago)
         txtTotal = findViewById(R.id.txtTotal)
         recyclerProductos = findViewById(R.id.recyclerProductos)
         val botonRegresar = findViewById<ImageView>(R.id.icono_regresar)
@@ -36,12 +38,14 @@ class DetallePedidoActivity : AppCompatActivity() {
         val numeroPedido = intent.getStringExtra("numeroPedido") ?: "#000000"
         val fecha = intent.getStringExtra("fecha") ?: "Sin fecha"
         val metodoEnvio = intent.getStringExtra("metodoEnvio") ?: "Sin método"
+        val metodoPago = intent.getStringExtra("metodoPago") ?: "Sin método"
         val total = intent.getDoubleExtra("total", 0.0)
 
         // Establecer los valores en la UI
         txtNumeroPedido.text = "Número de Pedido: $numeroPedido"
         txtFecha.text = "Fecha de pedido: $fecha"
         txtMetodoEnvio.text = "Método de Envío: $metodoEnvio"
+        txtMetodoPago.text = "Método de Pago: $metodoPago"
         txtTotal.text = "Total: S/ %.2f".format(total)
 
         // Establecer el RecyclerView

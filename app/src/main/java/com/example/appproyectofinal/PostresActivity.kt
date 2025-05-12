@@ -24,8 +24,7 @@ class PostresActivity : AppCompatActivity() {
 
         regresar_postres.setOnClickListener{
             val intent = Intent(this, CategoriaActivity3::class.java)
-            intent.putExtra("usuarioCorreo", correoUsuario) // <-- Asegúrate de reenviarlo
-            startActivity(intent)
+            intent.putExtra("usuarioCorreo", correoUsuario)
             startActivity(intent)
         }
 
