@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                             ).show()
                             // Aquí puedes navegar a la pantalla principal, por ejemplo:
                             val intent = Intent(this@LoginActivity, CategoriaActivity3::class.java)
-                            intent.putExtra("usuarioCorreo", email) // 👈 Pasas el correo del usuario
+                            intent.putExtra("usuarioCorreo", email) // Pasas el correo del usuario
                             startActivity(intent)
                         } else {
                             Toast.makeText(

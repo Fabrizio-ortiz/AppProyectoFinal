@@ -27,12 +27,12 @@ class CarritoActivity : AppCompatActivity() {
     private lateinit var costoDelivery: TextView
     private lateinit var metodoEnvio: TextView
     private lateinit var metodoPago: TextView
-    private val deliveryFijo = 5.00
-    private var costoEnvio = 0.00
+    private val deliveryFijo = 5.00 // Costo fijo por delivery
+    private var costoEnvio = 0.00 // Inicializa el costo del envío
 
-    private lateinit var correoUsuario: String // Mover esta declaración fuera del intent
+    private lateinit var correoUsuario: String // Correo del usuario que viene desde el Intent
 
-    // Lista de tiendas con sus direcciones
+    // Lista de tiendas para el método de recogida
     private val tiendas = listOf(
         "Tienda Los Olivos - Dirección: Av. Siempre Viva 123",
         "Tienda Comas - Dirección: Calle Ficticia 456",
@@ -43,9 +43,10 @@ class CarritoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_carrito)
 
-        // Obtener el correo del usuario de los extras del Intent
+        // Obtener el correo del usuario desde el Intent
         correoUsuario = intent.getStringExtra("usuarioCorreo") ?: ""
 
+        // Referencias a las vistas
         val buttonRegresar = findViewById<ImageView>(R.id.icono_regresar)
         val recycler = findViewById<RecyclerView>(R.id.recyclerCarrito)
         totalCarrito = findViewById(R.id.totalCarrito)
@@ -57,30 +58,35 @@ class CarritoActivity : AppCompatActivity() {
         val btnSeleccionarMetodo = findViewById<Button>(R.id.btnSeleccionarMetodo)
         val btnSeleccionarMetodoPago = findViewById<Button>(R.id.btnSeleccionarMetodoPago)
 
+        // Regresar a la actividad anterior al hacer clic en el ícono de regresar
         buttonRegresar.setOnClickListener {
             onBackPressed()
         }
 
+        // Configurar RecyclerView para mostrar los ítems del carrito
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = CarritoAdapter(Carrito.items.toMutableList()) {
-            actualizarTotal()
+            actualizarTotal() // Actualizar el total del carrito cuando haya un cambio
         }
-        mostrarFecha()
-        actualizarTotal()
+        mostrarFecha() // Mostrar la fecha de hoy
+        actualizarTotal() // Mostrar el total inicial
 
+        // Seleccionar el método de envío
         btnSeleccionarMetodo.setOnClickListener {
             mostrarOpcionesEnvio()
         }
 
+        // Seleccionar el método de pago
         btnSeleccionarMetodoPago.setOnClickListener {
             mostrarOpcionesPago()
         }
 
-        // Llamar a la función de generar número de pedido cuando el usuario hace clic en "Realizar Pedido"
+        // Realizar el pedido al hacer clic en "Realizar Pedido"
         btnRealizarPedido.setOnClickListener {
             val metodoEnvioTexto = metodoEnvio.text.toString()
             val metodoPagoTexto = metodoPago.text.toString()
 
+            // Validación para asegurarse de que se seleccionaron el envío y el pago
             if (metodoEnvioTexto == "Método de Envío: No seleccionado") {
                 Toast.makeText(this, "Selecciona un método de envío", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -91,6 +97,7 @@ class CarritoActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Generar número de pedido y guardarlo
             generarNumeroPedido(correoUsuario)
         }
     }
@@ -100,27 +107,28 @@ class CarritoActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             var numeroPedido = 1
-
             val dao = db.pedidoDao()
-            val ultimoPedido = dao.obtenerUltimoPedido() // Obtener el último pedido
+            val ultimoPedido = dao.obtenerUltimoPedido() // Obtener el último pedido en la base de datos
             if (ultimoPedido != null) {
-                numeroPedido = ultimoPedido.id + 1 // El número del nuevo pedido será 1 más que el último
+                numeroPedido = ultimoPedido.id + 1 // Incrementar el número de pedido
             }
 
-            // Formatear el número con ceros a la izquierda (ejemplo #000232)
+            // Formatear el número de pedido
             val numeroPedidoFormateado = "#%06d".format(numeroPedido)
 
-            // Llamar a la función para guardar el pedido, pasando el número generado y el correo
+            // Guardar el pedido en la base de datos
             guardarPedidoEnRoom(numeroPedidoFormateado, correo)
         }
     }
 
     private fun mostrarFecha() {
+        // Obtener y mostrar la fecha actual
         val fechaActual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
         fechaPedido.text = "Fecha: $fechaActual"
     }
 
     private fun mostrarOpcionesEnvio() {
+        // Opciones para el método de envío (delivery o recoger en tienda)
         val opciones = arrayOf("Delivery (S/ 5.00)", "Recoger en tienda (Sin costo)")
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Selecciona el método de envío")
@@ -133,15 +141,16 @@ class CarritoActivity : AppCompatActivity() {
                 1 -> {
                     metodoEnvio.text = "Método de Envío: Recoger en tienda"
                     costoEnvio = 0.00
-                    mostrarTiendas() // Mostrar las tiendas al seleccionar "Recoger en tienda"
+                    mostrarTiendas() // Si elige recoger en tienda, mostrar opciones de tiendas
                 }
             }
-            actualizarTotal() // Actualizar el total después de seleccionar el método
+            actualizarTotal() // Actualizar el total del carrito
         }
         builder.show()
     }
 
     private fun mostrarOpcionesPago() {
+        // Opciones para el método de pago (efectivo, Yape, Plin)
         val opcionesPago = arrayOf("Pago en efectivo", "Pago con Yape", "Pago con Plin")
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Selecciona el método de pago")
@@ -161,20 +170,19 @@ class CarritoActivity : AppCompatActivity() {
         builder.show()
     }
 
-    // Mostrar las tiendas disponibles para recoger en tienda
+    // Mostrar las tiendas disponibles si se selecciona "Recoger en tienda"
     private fun mostrarTiendas() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Selecciona tu tienda de recogida")
         builder.setItems(tiendas.toTypedArray()) { dialog, which ->
-            // Mostrar la tienda seleccionada
             metodoEnvio.text = "Método de Envío: Recoger en tienda - ${tiendas[which]}"
         }
         builder.show()
     }
 
     private fun actualizarTotal() {
+        // Sumar el total de los productos en el carrito y el costo de envío
         val total = Carrito.items.sumOf { it.precio * it.cantidad }
-        // Sumar el costo de delivery o no
         totalCarrito.text = "Total: S/ %.2f".format(total + costoEnvio)
         costoDelivery.text = "Delivery: S/ %.2f".format(costoEnvio)
     }
@@ -183,51 +191,49 @@ class CarritoActivity : AppCompatActivity() {
         val db = AppDb.getDatabase(this)
         val fecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
-        // Obtener el nombre del método de envío
+        // Determinar el método de envío seleccionado
         val metodoEnvioSeleccionado = if (costoEnvio == deliveryFijo) {
             "Delivery"
         } else {
-            // Obtener el nombre de la tienda seleccionada si se seleccionó "Recoger en tienda"
             val tiendaSeleccionada = metodoEnvio.text.toString().split("-")[1].trim()
             "Recoger en tienda ($tiendaSeleccionada)"
         }
 
-        // Obtener el nombre del metodo de pago
+        // Obtener el método de pago seleccionado
         val metodoPagoSeleccionado = metodoPago.text.toString().trim()
-
 
         lifecycleScope.launch {
             val dao = db.pedidoDao()
 
-            // Insertar el pedido en la tabla "pedidos"
+            // Insertar el pedido en la base de datos
             val pedido = PedidoEntity(
-                nombrePlato = "Pedido $numeroPedido", // Puedes incluir un nombre genérico para el pedido
-                cantidad = Carrito.items.size,  // Número de ítems en el carrito
+                nombrePlato = "Pedido $numeroPedido",
+                cantidad = Carrito.items.size,
                 precioTotal = Carrito.items.sumOf { it.precio * it.cantidad } + costoEnvio,
                 fecha = fecha,
                 delivery = costoEnvio,
                 metodoEnvio = metodoEnvioSeleccionado,
                 metodoPago = metodoPagoSeleccionado,
                 numeroPedido = numeroPedido,
-                email = email // Correo del usuario
+                email = email
             )
             dao.insertarPedido(pedido)
 
             // Insertar los productos en la tabla "productos_pedido"
-            val productoDao = db.productoDao() // Asegúrate de tener un DAO para ProductoPedidoEntity
+            val productoDao = db.productoDao()
             for (item in Carrito.items) {
                 val productoPedido = ProductoPedidoEntity(
-                    pedidoId = pedido.id, // Esto es importante para la relación entre PedidoEntity y ProductoPedidoEntity
+                    pedidoId = pedido.id,
                     nombrePlato = item.nombre,
                     cantidad = item.cantidad,
                     precio = item.precio,
                     numeroPedido = numeroPedido,
                     imagenResId = item.imagen
                 )
-                productoDao.insertarProducto(productoPedido) // Inserta el producto
+                productoDao.insertarProducto(productoPedido)
             }
 
-            // Navegar a la actividad de detalle del pedido
+            // Navegar a la pantalla de detalles del pedido
             val intent = Intent(this@CarritoActivity, DetallePedidoActivity::class.java).apply {
                 putExtra("numeroPedido", numeroPedido)
                 putExtra("fecha", fecha)
@@ -237,10 +243,11 @@ class CarritoActivity : AppCompatActivity() {
             }
             startActivity(intent)
 
+            // Mensaje de éxito y limpiar el carrito
             Toast.makeText(this@CarritoActivity, "Pedido guardado con éxito", Toast.LENGTH_SHORT).show()
-            Carrito.limpiar()
-            finish()
+            Carrito.limpiar() // Limpiar el carrito después de realizar el pedido
+            finish() // Cerrar la actividad actual
         }
     }
-
 }
+
