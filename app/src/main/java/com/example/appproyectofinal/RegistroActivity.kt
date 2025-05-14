@@ -70,7 +70,23 @@ class RegistroActivity : AppCompatActivity() {
             // Validar que todos los campos estén completos
             if (nombres.isEmpty() || apellidos.isEmpty() || correo.isEmpty()
                 || celular.isEmpty() || contraseña.isEmpty() || confirmarContraseña.isEmpty()) {
+                //Validar correo
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            //Validar estructura del correo con expresiones regulares
+            val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+            if (!correo.matches(emailPattern.toRegex())) {
+                Toast.makeText(this, "Por favor, ingresa un correo electrónico válido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            //validar celular 9 digitos
+            // Validar celular con 9 dígitos
+            val celularPattern = "^9\\d{8}$"  // Expresión regular para 9 dígitos, empezando con 9
+            if (!celular.matches(celularPattern.toRegex())) {
+                Toast.makeText(this, "Por favor, ingresa un número de celular válido (9 dígitos, empezando con 9.)", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
